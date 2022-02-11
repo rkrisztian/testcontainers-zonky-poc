@@ -32,6 +32,7 @@ dependencies {
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:postgresql'
 	testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0'
+	testImplementation 'io.zonky.test:embedded-database-spring-test:2.1.1'
 }
 
 dependencyManagement {
