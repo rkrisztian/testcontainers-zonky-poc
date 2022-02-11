@@ -6,7 +6,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
-import org.junit.jupiter.api.MethodOrderer;
+import org.flywaydb.test.FlywayTestExecutionListener;
+import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -17,12 +18,15 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Testcontainers
 @ContextConfiguration(initializers = SharedPostgresqlContainer.DockerPostgreDataSourceInitializer.class)
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class })
 @TestMethodOrder(OrderAnnotation.class)
 class UserRepositoryTest {
 
@@ -62,6 +66,7 @@ class UserRepositoryTest {
 
 	@Test
 	@Order(3)
+	@FlywayTest
 	void user3ShouldNotExist() {
 		var response = testRestTemplate.getForEntity("/users/3", String.class);
 
