@@ -1,13 +1,3 @@
 logging:
   level:
     root: debug
-
-zonky:
-  test:
-    database:
-      provider: docker
-      type: postgres
-      refresh: before_class
-      postgres:
-        docker:
-          image: postgres:12.7

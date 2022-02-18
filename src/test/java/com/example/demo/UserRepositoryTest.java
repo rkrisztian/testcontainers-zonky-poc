@@ -19,7 +19,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@ActiveProfiles({"test", "testcontainers"})
 @AutoConfigureEmbeddedDatabase
 @TestMethodOrder(OrderAnnotation.class)
 class UserRepositoryTest {
